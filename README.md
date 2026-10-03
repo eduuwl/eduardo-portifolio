@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eduardo Uchoa — Portfólio
 
-## Getting Started
-
-First, run the development server:
+Landing page / portfólio feita com **Next.js (App Router)**, **TypeScript** e **Tailwind CSS 4**.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de produção
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Onde editar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| O quê | Arquivo |
+| --- | --- |
+| Links de contato (WhatsApp, e-mail, GitHub, LinkedIn) | `config/site.ts` → `contactLinks` |
+| Título, descrição e palavras-chave (SEO) | `config/site.ts` → `siteConfig` |
+| Projetos, processo, tecnologias e serviços | `data/content.ts` |
+| Cores e tipografia (tokens) | `app/globals.css` → `@theme` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Links de contato
 
-## Learn More
+Enquanto um link estiver vazio (`""`), o botão aparece como **"Link em breve"** e não leva a lugar nenhum.
 
-To learn more about Next.js, take a look at the following resources:
+```ts
+export const contactLinks = {
+  whatsappNumber: "5591999999999", // só dígitos, com DDI e DDD
+  email: "voce@dominio.com",
+  github: "https://github.com/seu-usuario",
+  linkedin: "https://www.linkedin.com/in/seu-usuario",
+};
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GitHub e LinkedIn preenchidos também entram automaticamente no JSON-LD (`sameAs`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### URL do site
 
-## Deploy on Vercel
+Defina `NEXT_PUBLIC_SITE_URL` no ambiente de deploy (ex.: `https://eduardouchoa.dev`).
+Ela é usada no Open Graph, no `sitemap.xml` e no `robots.txt`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Adicionar projetos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Projeto em destaque:** adicione um item em `featuredProjects`. Campos como `metrics`, `approach` e `links` são opcionais. Só preencha com informações reais.
+- **Sites e outros projetos:** adicione itens em `otherProjects` (`status: "live"` para site no ar, `"prototype"` para protótipo). Para mostrar uma captura no card, salve a imagem em `public/projects/` com o nome indicado em `image` (ex.: `academia-belfort.jpg`, proporção 16:9) e rode o build. Sem a imagem, o card fica compacto (barra com o domínio + texto).
+- **Links do projeto** (repositório, demo): preencha `links: [{ label: "Ver repositório", href: "https://..." }]`. Sem links, o card mostra "Saber mais sobre o projeto", que leva à seção de contato.
+
+As ilustrações dos cards (`components/ProjectVisuals.tsx`) são feitas em CSS/SVG e indicam que não são capturas do sistema. Se tiver screenshots reais, troque o `visual` por uma imagem com `next/image` e um `alt` descritivo.
+
+## Estrutura
+
+```
+app/
+  layout.tsx            metadata, Open Graph, JSON-LD, fontes
+  page.tsx              composição das seções
+  opengraph-image.tsx   imagem de compartilhamento gerada no build
+  icon.svg, apple-icon.tsx
+  sitemap.ts, robots.ts
+components/
+  Header.tsx            navegação fixa com destaque da seção ativa + menu mobile
+  HeroCode.tsx          painel de código animado do hero
+  ProjectVisuals.tsx    ilustrações em CSS/SVG dos projetos
+  RevealObserver.tsx    animação de entrada ao rolar
+  sections/             Hero, About, Projects, Process, Stack, Services, Contact
+  ui/                   SectionHeader, ButtonLink, BrandIcons
+config/site.ts          dados pessoais e links
+data/content.ts         conteúdo da página
+```
+
+## Acessibilidade e performance
+
+- Todas as animações respeitam `prefers-reduced-motion`.
+- Link "Pular para o conteúdo", foco visível, landmarks e títulos semânticos.
+- Página 100% estática (prerender). As únicas dependências extras são `lucide-react` (ícones). Nenhuma biblioteca de animação: tudo é CSS e `IntersectionObserver`.

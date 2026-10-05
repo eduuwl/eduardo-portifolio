@@ -1,60 +1,93 @@
 /**
  * Configuração central do site.
- * Tudo que é pessoal (links, URL, textos de SEO) fica aqui para ser editado em um só lugar.
+ * Dados da marca, links e textos de SEO ficam aqui para serem editados em um só lugar.
  */
 
 export const siteConfig = {
-  name: "Eduardo Uchoa",
-  role: "Desenvolvedor & Analista de Dados",
+  name: "Noteron",
+  tagline: "Soluções digitais",
+  slogan: "Conectando a Amazônia ao futuro digital",
   /**
    * URL pública do site (usada em Open Graph, sitemap e robots).
-   * Defina NEXT_PUBLIC_SITE_URL no ambiente de deploy, ex.: https://eduardouchoa.dev
+   * Defina NEXT_PUBLIC_SITE_URL no ambiente de deploy, ex.: https://noteron.com.br
    */
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
-  title: "Eduardo Uchoa — Desenvolvimento de software, automações e IA",
-  shortTitle: "Eduardo Uchoa",
+  title: "Noteron | Soluções digitais no Pará",
   description:
-    "Desenvolvedor e analista de dados. Crio sistemas web, APIs, automações e soluções com IA sob medida, transformando processos manuais em software simples e confiável.",
+    "A Noteron é uma startup paraense que desenvolve sistemas web, automações e soluções com inteligência artificial, e cuida do marketing e SEO de empresas da Amazônia.",
   locale: "pt_BR",
+  region: "Pará",
   keywords: [
-    "Eduardo Uchoa",
-    "desenvolvedor",
-    "analista de dados",
+    "Noteron",
+    "startup Pará",
+    "desenvolvimento de software Belém",
     "automação de processos",
     "sistemas web",
     "APIs",
     "inteligência artificial",
-    "Python",
-    "Next.js",
-    "Node.js",
+    "marketing digital",
+    "SEO",
     "n8n",
+    "Next.js",
+    "Python",
+  ],
+  /** Áreas de atuação (dados estruturados para buscadores) */
+  knowsAbout: [
+    "Desenvolvimento web",
+    "Automação de processos",
+    "Inteligência Artificial",
+    "Análise de dados",
+    "Integrações entre sistemas",
+    "Marketing digital e SEO",
   ],
 } as const;
 
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  /**
+   * Foto em /public. Se o arquivo não existir, aparece o emblema da marca no lugar.
+   * Proporção recomendada: 4:5.
+   */
+  photo: { src: string; alt: string };
+  /** Perfil pessoal (opcional), exibido no card */
+  linkedin?: string;
+  /** Formação, usada só nos dados estruturados */
+  alumniOf?: string;
+};
+
+/** Equipe exibida na seção "Equipe". O primeiro integrante é o fundador. */
+export const team: TeamMember[] = [
+  {
+    name: "Eduardo Uchoa",
+    role: "Fundador · Desenvolvimento",
+    bio: "Formado em Análise e Desenvolvimento de Sistemas e pós-graduado em Inteligência Artificial e Aprendizado de Máquina pela UNAMA. Lidera a criação dos sistemas, automações e soluções com IA.",
+    photo: { src: "/eduardo.jpg", alt: "Eduardo Uchoa, fundador da Noteron" },
+    linkedin: "https://www.linkedin.com/in/eduuwl",
+    alumniOf: "UNAMA",
+  },
+  {
+    name: "André Uchoa",
+    role: "Marketing e SEO",
+    bio: "Cuida do marketing e do SEO. Trabalha para que os sites que entregamos sejam encontrados no Google e tragam clientes de verdade para quem contrata a Noteron.",
+    photo: { src: "/andre.jpg", alt: "André Uchoa, responsável por marketing e SEO na Noteron" },
+  },
+];
+
 /**
  * Links de contato. Deixe a string vazia ("") enquanto não tiver o link:
- * o botão aparece como "em breve" e não leva a lugar nenhum.
+ * o card aparece como "em breve" e não leva a lugar nenhum.
  */
 export const contactLinks = {
   /** Apenas dígitos, com DDI e DDD. Ex.: "5591999999999" */
   whatsappNumber: "5591989599238",
-  whatsappMessage: "Olá, Eduardo! Vi seu portfólio e gostaria de conversar sobre um projeto.",
-  /** Ex.: "contato@seudominio.com" */
+  whatsappMessage: "Olá! Vi o site da Noteron e gostaria de conversar sobre um projeto.",
   email: "eduardocs1964@gmail.com",
-  /** URL completa. Ex.: "https://github.com/seu-usuario" */
+  /** URL completa. Ex.: "https://github.com/noteron" */
   github: "https://github.com/eduuwl",
-  /** URL completa. Ex.: "https://www.linkedin.com/in/seu-usuario" */
+  /** URL completa. Ex.: "https://www.linkedin.com/company/noteron" */
   linkedin: "https://www.linkedin.com/in/eduuwl",
-};
-
-/**
- * Foto de perfil exibida na seção "Sobre".
- * Coloque o arquivo em /public com este nome. Se o arquivo não existir,
- * a página mostra um placeholder no lugar.
- */
-export const profilePhoto = {
-  src: "/eduardo.jpg",
-  alt: "Foto de Eduardo Uchoa",
 };
 
 export type ContactChannelId = "whatsapp" | "email" | "linkedin" | "github";
@@ -78,9 +111,7 @@ export function getContactChannels(): ContactChannel[] {
       id: "whatsapp",
       label: "WhatsApp",
       hint: "Resposta mais rápida",
-      href: digits
-        ? `https://wa.me/${digits}?text=${encodeURIComponent(whatsappMessage)}`
-        : null,
+      href: digits ? `https://wa.me/${digits}?text=${encodeURIComponent(whatsappMessage)}` : null,
       external: true,
     },
     {
@@ -93,7 +124,7 @@ export function getContactChannels(): ContactChannel[] {
     {
       id: "linkedin",
       label: "LinkedIn",
-      hint: "Trajetória profissional",
+      hint: "Novidades e bastidores",
       href: linkedin || null,
       external: true,
     },
@@ -107,10 +138,24 @@ export function getContactChannels(): ContactChannel[] {
   ];
 }
 
-export const navItems = [
-  { id: "sobre", label: "Sobre" },
-  { id: "projetos", label: "Projetos" },
-  { id: "processo", label: "Processo" },
-  { id: "stack", label: "Stack" },
-  { id: "servicos", label: "Serviços" },
+/**
+ * Seções da página, na ordem em que aparecem.
+ * `nav: null` deixa a seção fora do menu.
+ */
+export const sections = [
+  { id: "sobre", nav: "Sobre nós" },
+  { id: "equipe", nav: "Equipe" },
+  { id: "servicos", nav: "Serviços" },
+  { id: "projetos", nav: "Projetos" },
+  { id: "processo", nav: null },
+  { id: "tecnologia", nav: "Tecnologia" },
+  { id: "contato", nav: "Contato" },
 ] as const;
+
+export type SectionId = (typeof sections)[number]["id"];
+
+export const navItems = sections.filter(
+  (s): s is Extract<(typeof sections)[number], { nav: string }> => s.nav !== null,
+);
+
+export const sectionTitleId = (id: SectionId) => `${id}-title`;

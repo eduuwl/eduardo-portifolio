@@ -1,42 +1,26 @@
+import { sectionTitleId, type SectionId } from "@/config/site";
+import { cn } from "@/lib/cn";
+
 type SectionHeaderProps = {
-  /** Índice da seção, ex.: "02" */
-  index: string;
-  label: string;
-  /** id usado em aria-labelledby da <section> */
-  titleId: string;
-  title: React.ReactNode;
-  intro?: React.ReactNode;
+  id: SectionId;
+  title: string;
+  lead?: React.ReactNode;
+  className?: string;
 };
 
-export function SectionHeader({ index, label, titleId, title, intro }: SectionHeaderProps) {
+/** Título em caixa alta com um fio embaixo, como no manual da marca. */
+export function SectionHeader({ id, title, lead, className }: SectionHeaderProps) {
   return (
-    <header className="grid gap-6 md:grid-cols-12 md:gap-8">
-      <p
-        data-reveal
-        className="flex items-center gap-3 self-start font-mono text-xs tracking-wide text-muted uppercase md:col-span-3 md:pt-4"
-      >
-        <span className="text-accent">{index}</span>
-        <span aria-hidden className="h-px w-8 bg-line-strong" />
-        {label}
-      </p>
-      <div className="md:col-span-9">
-        <h2
-          id={titleId}
-          data-reveal
-          className="max-w-3xl text-[clamp(1.875rem,4vw,3rem)] leading-[1.08] font-semibold tracking-[-0.03em] text-balance"
-        >
-          {title}
-        </h2>
-        {intro ? (
-          <p
-            data-reveal
-            style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
-            className="mt-5 max-w-2xl text-base leading-relaxed text-pretty text-muted sm:text-lg"
-          >
-            {intro}
-          </p>
-        ) : null}
-      </div>
+    <header data-reveal className={cn("max-w-3xl", className)}>
+      <h2 id={sectionTitleId(id)} className="heading-brand text-sm text-fg sm:text-base">
+        {title}
+      </h2>
+      <span aria-hidden className="mt-4 block h-px w-full max-w-md bg-gradient-to-r from-line-strong to-transparent" />
+      {lead ? (
+        <p className="mt-6 font-display text-2xl leading-snug font-semibold text-balance text-fg sm:text-[2rem]">
+          {lead}
+        </p>
+      ) : null}
     </header>
   );
 }

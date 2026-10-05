@@ -1,6 +1,13 @@
-import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle } from "lucide-react";
+import { CircuitLines } from "@/components/brand/CircuitLines";
+import { Emblem } from "@/components/brand/Emblem";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
-import { getContactChannels, type ContactChannelId } from "@/config/site";
+import { HoverArrow } from "@/components/ui/HoverArrow";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { getContactChannels, type ContactChannel, type ContactChannelId } from "@/config/site";
+import { cn } from "@/lib/cn";
+import { externalLinkProps } from "@/lib/links";
 
 const icons: Record<ContactChannelId, React.ComponentType<{ className?: string }>> = {
   whatsapp: MessageCircle,
@@ -13,92 +20,72 @@ export function Contact() {
   const channels = getContactChannels();
 
   return (
-    <section
-      id="contato"
-      aria-labelledby="contato-title"
-      className="relative isolate overflow-hidden border-t border-line py-24 sm:py-36"
-    >
-      <div aria-hidden className="absolute inset-0 -z-10 bg-grid mask-fade opacity-50" />
+    <Section id="contato" className="isolate overflow-hidden border-t border-line py-24 sm:py-36">
+      <CircuitLines className="absolute -right-20 bottom-0 -z-10 w-[560px] -scale-x-100 text-circuit/40 max-md:hidden" />
+      <Emblem sizes="420px" className="absolute top-1/2 right-[6%] -z-10 hidden w-[380px] -translate-y-1/2 opacity-[0.12] xl:block" />
 
-      <div className="container-page">
-        <p data-reveal className="flex items-center gap-3 font-mono text-xs tracking-wide text-muted uppercase">
-          <span className="text-accent">06</span>
-          <span aria-hidden className="h-px w-8 bg-line-strong" />
-          Contato
-        </p>
+      <SectionHeader
+        id="contato"
+        title="Contato"
+        lead={
+          <>
+            Tem um processo que poderia rodar sozinho? <span className="text-neon text-glow">Vamos conversar.</span>
+          </>
+        }
+      />
 
-        <h2
-          id="contato-title"
-          data-reveal
-          className="mt-8 max-w-4xl text-[clamp(2.25rem,5.5vw,4.25rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance"
-        >
-          Tem um problema que pode ser resolvido com tecnologia?{" "}
-          <span className="text-accent">Vamos conversar.</span>
-        </h2>
+      <p data-reveal className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted">
+        Conte o que está tomando tempo da sua equipe. A gente responde rápido e, se fizer sentido, monta uma proposta sem
+        compromisso.
+      </p>
 
-        <p
-          data-reveal
-          style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
-          className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted"
-        >
-          Conte o que está tomando tempo da sua equipe ou o que você quer tirar do papel. A gente olha junto e vê qual é
-          o caminho mais simples para resolver.
-        </p>
+      <ul className="mt-12 grid max-w-4xl grid-cols-2 gap-3 lg:grid-cols-4">
+        {channels.map((channel, i) => (
+          <li key={channel.id} data-reveal style={{ "--reveal-delay": `${100 + i * 60}ms` }}>
+            {/* O primeiro canal é o preferido e ganha destaque */}
+            <ContactCard channel={channel} highlighted={i === 0} />
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
 
-        <ul className="mt-14 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {channels.map((channel, i) => {
-            const Icon = icons[channel.id];
-            const inner = (
-              <>
-                <span className="flex items-center justify-between">
-                  <Icon className="size-5" />
-                  {channel.href ? (
-                    <ArrowUpRight
-                      aria-hidden
-                      className="size-4 text-subtle transition-all duration-300 ease-out-soft group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
-                    />
-                  ) : null}
-                </span>
-                <span className="mt-6 block text-base font-semibold tracking-tight sm:mt-10 sm:text-lg">
-                  {channel.label}
-                </span>
-                <span className="mt-1 block truncate text-sm text-muted">
-                  {channel.href ? channel.hint : "Link em breve"}
-                </span>
-              </>
-            );
+function ContactCard({ channel, highlighted }: { channel: ContactChannel; highlighted: boolean }) {
+  const Icon = icons[channel.id];
 
-            return (
-              <li
-                key={channel.id}
-                data-reveal
-                style={{ "--reveal-delay": `${120 + i * 60}ms` } as React.CSSProperties}
-              >
-                {channel.href ? (
-                  <a
-                    href={channel.href}
-                    {...(channel.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className={`group block h-full rounded-2xl border p-5 transition-colors sm:p-6 duration-300 ${
-                      i === 0
-                        ? "border-accent/40 bg-accent/[0.06] hover:border-accent"
-                        : "border-line bg-surface/60 hover:border-line-strong hover:bg-surface"
-                    }`}
-                  >
-                    {inner}
-                  </a>
-                ) : (
-                  <div
-                    aria-disabled="true"
-                    className="block h-full cursor-not-allowed rounded-2xl border border-dashed border-line p-5 opacity-60 sm:p-6"
-                  >
-                    {inner}
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+  const content = (
+    <>
+      <span className="flex items-center justify-between">
+        <Icon className={cn("size-5", highlighted ? "text-neon" : "text-leaf")} />
+        {channel.href ? <HoverArrow className="size-4" /> : null}
+      </span>
+      <span className="mt-8 block font-display text-base font-semibold">{channel.label}</span>
+      <span className="mt-1 block truncate text-sm text-muted">{channel.href ? channel.hint : "Link em breve"}</span>
+    </>
+  );
+
+  if (!channel.href) {
+    return (
+      <div
+        aria-disabled="true"
+        className="block h-full cursor-not-allowed rounded-lg border border-dashed border-line p-5 opacity-60"
+      >
+        {content}
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <a
+      href={channel.href}
+      {...(channel.external ? externalLinkProps : {})}
+      className={cn(
+        "group block h-full rounded-lg border bg-surface p-5 transition-[border-color,box-shadow] duration-300",
+        highlighted ? "border-neon/60 glow" : "border-line hover:border-neon/50 hover:glow",
+      )}
+    >
+      {content}
+    </a>
   );
 }

@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import { Wordmark } from "@/components/brand/Wordmark";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
@@ -6,21 +7,21 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line">
-      <div className="container-page flex flex-col gap-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
-          <span className="font-medium text-fg">{siteConfig.name}</span>
-          <span aria-hidden className="hidden h-3 w-px bg-line-strong sm:block" />
-          <span>{siteConfig.role}</span>
+      <div className="container-page flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <Wordmark className="text-xl" />
+          <p className="mt-2 font-display text-[11px] font-medium tracking-[0.14em] text-subtle uppercase">
+            {siteConfig.slogan}
+          </p>
         </div>
 
-        <div className="flex items-center justify-between gap-6 sm:justify-end">
-          <span className="font-mono text-xs text-subtle">© {year}</span>
-          <a
-            href="#inicio"
-            className="group inline-flex items-center gap-2 font-mono text-xs transition-colors hover:text-fg"
-          >
+        <div className="flex items-center justify-between gap-8 text-sm text-subtle sm:justify-end">
+          <span>
+            © {year} {siteConfig.name}
+          </span>
+          <a href="#inicio" className="group inline-flex items-center gap-2 transition-colors hover:text-neon">
             Voltar ao topo
-            <ArrowUp className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden />
+            <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden />
           </a>
         </div>
       </div>

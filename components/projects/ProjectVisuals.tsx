@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import type { ProjectVisual } from "@/data/content";
 
 /* Ilustrações construídas em CSS/SVG. Representam o fluxo de cada projeto;
    não são capturas de tela dos sistemas. */
@@ -18,7 +19,7 @@ export function TiraNotaVisual() {
     <div aria-hidden className="relative flex flex-col gap-5 p-5 sm:p-7">
       {/* Planilha de entrada */}
       <div className="overflow-hidden rounded-lg border border-line bg-bg/70">
-        <div className="flex items-center justify-between border-b border-line px-3 py-2 font-mono text-[10px] text-subtle">
+        <div className="flex items-center justify-between border-b border-line px-3 py-2 text-[10px] text-subtle">
           <span>entrada.xlsx</span>
           <span>status</span>
         </div>
@@ -27,14 +28,14 @@ export function TiraNotaVisual() {
             <li
               key={i}
               className="anim-row flex items-center gap-3 px-3 py-2"
-              style={{ "--row-delay": `${i * 0.75}s` } as React.CSSProperties}
+              style={{ "--row-delay": `${i * 0.75}s` }}
             >
-              <span className="w-4 font-mono text-[10px] text-subtle">{i + 1}</span>
+              <span className="w-4 text-[10px] text-subtle">{i + 1}</span>
               <span className={`h-1.5 rounded-full bg-line-strong ${barWidths[i][0]}`} />
               <span className={`h-1.5 rounded-full bg-line-strong/70 ${barWidths[i][1]}`} />
               <span
-                className="anim-check ml-auto grid size-4 place-items-center rounded-full bg-accent text-bg"
-                style={{ "--row-delay": `${i * 0.75}s` } as React.CSSProperties}
+                className="anim-check ml-auto grid size-4 place-items-center rounded-full bg-neon text-bg"
+                style={{ "--row-delay": `${i * 0.75}s` }}
               >
                 <Check className="size-2.5" strokeWidth={3} />
               </span>
@@ -44,7 +45,7 @@ export function TiraNotaVisual() {
       </div>
 
       {/* Conector */}
-      <div className="flex items-center gap-3 px-1 font-mono text-[10px] text-subtle">
+      <div className="flex items-center gap-3 px-1 text-[10px] text-subtle">
         <span className="h-px flex-1 bg-gradient-to-r from-transparent via-line-strong to-line-strong" />
         python · navegador
         <span className="h-px flex-1 bg-gradient-to-l from-transparent via-line-strong to-line-strong" />
@@ -66,8 +67,8 @@ export function TiraNotaVisual() {
             {layer === 0 ? (
               <div className="anim-doc">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-accent">NFS-e</span>
-                  <span className="grid size-3.5 place-items-center rounded-full border border-accent text-accent">
+                  <span className="text-[10px] text-neon">NFS-e</span>
+                  <span className="grid size-3.5 place-items-center rounded-full border border-neon text-neon">
                     <Check className="size-2" strokeWidth={3} />
                   </span>
                 </div>
@@ -86,7 +87,7 @@ export function TiraNotaVisual() {
   );
 }
 
-const mono = { fontFamily: "var(--font-mono)" };
+const labelFont = { fontFamily: "var(--font-display)" };
 
 export function SalesFlowVisual() {
   return (
@@ -103,15 +104,15 @@ export function SalesFlowVisual() {
         {/* WhatsApp */}
         <g>
           <rect x="12" y="98" width="80" height="44" rx="10" fill="var(--color-bg)" stroke="var(--color-line-strong)" />
-          <text x="52" y="124" textAnchor="middle" fontSize="11" fill="var(--color-fg)" style={mono}>
+          <text x="52" y="124" textAnchor="middle" fontSize="11" fill="var(--color-fg)" style={labelFont}>
             WhatsApp
           </text>
         </g>
 
         {/* n8n (orquestrador) */}
         <g>
-          <rect x="150" y="94" width="60" height="52" rx="12" fill="var(--color-accent)" />
-          <text x="180" y="124" textAnchor="middle" fontSize="12" fontWeight="600" fill="var(--color-bg)" style={mono}>
+          <rect x="150" y="94" width="60" height="52" rx="12" fill="var(--color-neon)" />
+          <text x="180" y="124" textAnchor="middle" fontSize="12" fontWeight="600" fill="var(--color-bg)" style={labelFont}>
             n8n
           </text>
         </g>
@@ -119,29 +120,35 @@ export function SalesFlowVisual() {
         {/* Catálogo */}
         <g>
           <rect x="262" y="40" width="86" height="44" rx="10" fill="var(--color-bg)" stroke="var(--color-line-strong)" />
-          <text x="305" y="66" textAnchor="middle" fontSize="11" fill="var(--color-fg)" style={mono}>
+          <text x="305" y="66" textAnchor="middle" fontSize="11" fill="var(--color-fg)" style={labelFont}>
             catálogo
           </text>
         </g>
 
         {/* IA */}
         <g>
-          <rect x="262" y="156" width="86" height="44" rx="10" fill="var(--color-bg)" stroke="var(--color-accent)" />
-          <text x="305" y="182" textAnchor="middle" fontSize="11" fill="var(--color-accent)" style={mono}>
+          <rect x="262" y="156" width="86" height="44" rx="10" fill="var(--color-bg)" stroke="var(--color-neon)" />
+          <text x="305" y="182" textAnchor="middle" fontSize="11" fill="var(--color-neon)" style={labelFont}>
             IA
           </text>
         </g>
 
-        <text x="176" y="222" textAnchor="middle" fontSize="9" fill="var(--color-subtle)" style={mono}>
+        <text x="176" y="222" textAnchor="middle" fontSize="9" fill="var(--color-subtle)" style={labelFont}>
           resposta ao cliente
         </text>
-        <text x="121" y="112" textAnchor="middle" fontSize="8" fill="var(--color-subtle)" style={mono}>
+        <text x="121" y="112" textAnchor="middle" fontSize="8" fill="var(--color-subtle)" style={labelFont}>
           msg
         </text>
-        <text x="238" y="80" textAnchor="middle" fontSize="8" fill="var(--color-subtle)" style={mono}>
+        <text x="238" y="80" textAnchor="middle" fontSize="8" fill="var(--color-subtle)" style={labelFont}>
           API
         </text>
       </svg>
     </div>
   );
 }
+
+/** Ilustração de cada projeto, indexada por `Project["visual"]`. */
+export const projectVisuals: Record<ProjectVisual, React.ComponentType> = {
+  tiranota: TiraNotaVisual,
+  "sales-flow": SalesFlowVisual,
+};

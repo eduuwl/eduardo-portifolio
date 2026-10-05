@@ -1,6 +1,19 @@
+import {
+  BrainCircuit,
+  Cable,
+  ChartColumn,
+  Globe,
+  LayoutDashboard,
+  Puzzle,
+  SearchCheck,
+  Webhook,
+  Workflow,
+  type LucideIcon,
+} from "lucide-react";
+
 /**
  * Conteúdo da página. Para adicionar um projeto, serviço ou tecnologia,
- * basta editar os arrays abaixo — os componentes se ajustam sozinhos.
+ * basta editar os arrays abaixo. Os componentes se ajustam sozinhos.
  */
 
 /* ------------------------------------------------------------------
@@ -11,6 +24,8 @@ export type ProjectLink = {
   label: string;
   href: string;
 };
+
+export type ProjectVisual = "tiranota" | "sales-flow";
 
 export type ProjectMetric = {
   value: string;
@@ -35,7 +50,7 @@ export type Project = {
   /** Repositório, demo, estudo de caso… Deixe vazio se não houver. */
   links?: ProjectLink[];
   /** Ilustração em CSS usada no card (não é captura de tela do sistema) */
-  visual?: "tiranota" | "sales-flow";
+  visual?: ProjectVisual;
 };
 
 export const featuredProjects: Project[] = [
@@ -149,87 +164,49 @@ export const otherProjects: OtherProject[] = [
 ------------------------------------------------------------------- */
 
 export type ProcessStep = {
-  number: string;
   title: string;
-  /** Nome curto usado na animação do hero */
-  short: string;
   description: string;
 };
 
 export const processSteps: ProcessStep[] = [
   {
-    number: "01",
-    title: "Entendo o problema",
-    short: "entender",
+    title: "Entender",
     description:
-      "Converso com quem vive o processo no dia a dia. Antes de escrever código, preciso saber onde está o gargalo e o que significa, na prática, resolver.",
+      "Conversamos com quem vive o processo no dia a dia para descobrir onde o tempo está sendo perdido.",
   },
   {
-    number: "02",
-    title: "Planejo a solução",
-    short: "planejar",
-    description:
-      "Defino escopo, dados e integrações, e escolho o caminho mais simples que resolve de verdade, sem complexidade que não se paga.",
+    title: "Planejar",
+    description: "Definimos escopo, dados e integrações e escolhemos o caminho mais simples que resolve.",
   },
   {
-    number: "03",
-    title: "Desenvolvo",
-    short: "desenvolver",
-    description:
-      "Construo em entregas curtas, para que exista algo funcionando e testável cedo, em vez de uma grande revelação no final.",
+    title: "Desenvolver",
+    description: "Entregamos em partes curtas, então desde cedo você já tem algo funcionando para testar.",
   },
   {
-    number: "04",
-    title: "Testo e refino",
-    short: "refinar",
-    description:
-      "Coloco nas mãos de quem vai usar, ouço o feedback e ajusto. Software bom é o que se encaixa na rotina real das pessoas.",
+    title: "Refinar",
+    description: "Colocamos nas mãos de quem vai usar, ouvimos o retorno e ajustamos o que for preciso.",
   },
   {
-    number: "05",
-    title: "Entrego",
-    short: "entregar",
-    description:
-      "A solução vai para o uso real, com a equipe sabendo operar e entendendo o que foi construído.",
+    title: "Entregar",
+    description: "A solução entra em uso real, com a equipe sabendo operar e com suporte da Noteron.",
   },
 ];
 
 /* ------------------------------------------------------------------
-   Tecnologias
+   Tecnologia
 ------------------------------------------------------------------- */
 
 export type StackGroup = {
   name: string;
-  summary: string;
   items: string[];
 };
 
 export const stackGroups: StackGroup[] = [
-  {
-    name: "Frontend",
-    summary: "Interfaces rápidas e responsivas",
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML & CSS"],
-  },
-  {
-    name: "Backend",
-    summary: "APIs e regras de negócio",
-    items: ["Node.js", "NestJS", "APIs REST", "Prisma"],
-  },
-  {
-    name: "Dados",
-    summary: "Modelagem, consulta e análise",
-    items: ["Python", "PostgreSQL", "Banco de dados", "Análise de dados", "Excel"],
-  },
-  {
-    name: "Automação",
-    summary: "Processos que rodam sozinhos",
-    items: ["Python", "n8n", "Automação de navegador", "Integrações"],
-  },
-  {
-    name: "IA",
-    summary: "Modelos aplicados a problemas reais",
-    items: ["Inteligência Artificial", "Aprendizado de Máquina", "IA em atendimento"],
-  },
+  { name: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { name: "Backend", items: ["Node.js", "NestJS", "APIs REST", "Prisma"] },
+  { name: "Dados", items: ["Python", "PostgreSQL", "Análise de dados", "Excel"] },
+  { name: "Automação", items: ["n8n", "Automação de navegador", "Integrações", "WhatsApp"] },
+  { name: "IA", items: ["Modelos de linguagem", "Aprendizado de máquina", "IA no atendimento"] },
 ];
 
 /* ------------------------------------------------------------------
@@ -239,39 +216,53 @@ export const stackGroups: StackGroup[] = [
 export type Service = {
   title: string;
   description: string;
+  icon: LucideIcon;
 };
 
 export const services: Service[] = [
   {
     title: "Sites e landing pages",
-    description: "Páginas rápidas, responsivas e preparadas para busca, pensadas para apresentar e converter.",
+    description: "Rápidos, bonitos no celular e prontos para aparecer no Google.",
+    icon: Globe,
+  },
+  {
+    title: "Marketing e SEO",
+    description: "Estratégia, conteúdo e otimização para sua empresa ser encontrada no Google e atrair clientes.",
+    icon: SearchCheck,
   },
   {
     title: "Sistemas web",
-    description: "Aplicações sob medida para organizar operações, cadastros e fluxos internos.",
+    description: "Cadastros, controles e fluxos internos em um sistema feito para a sua operação.",
+    icon: LayoutDashboard,
   },
   {
     title: "APIs",
-    description: "Backends e APIs REST bem estruturados, prontos para conversar com outros sistemas.",
+    description: "Backends organizados que deixam seus sistemas conversarem com qualquer outro.",
+    icon: Webhook,
   },
   {
     title: "Automações",
-    description: "Tarefas repetitivas que viram rotinas automáticas, com Python, navegador ou n8n.",
+    description: "Tarefas repetitivas viram rotinas que rodam sozinhas, com Python, navegador ou n8n.",
+    icon: Workflow,
   },
   {
-    title: "Integrações entre sistemas",
-    description: "Ferramentas que não conversam passam a trocar dados entre si, sem copiar e colar.",
+    title: "Integrações",
+    description: "Ferramentas que hoje não se falam passam a trocar dados, sem copiar e colar.",
+    icon: Cable,
   },
   {
     title: "Dashboards",
-    description: "Dados espalhados organizados em painéis claros para acompanhar e decidir.",
+    description: "Os números da empresa reunidos em painéis claros para acompanhar e decidir.",
+    icon: ChartColumn,
   },
   {
-    title: "Soluções com IA",
-    description: "IA aplicada onde faz sentido: atendimento, classificação e apoio a processos.",
+    title: "Inteligência artificial",
+    description: "IA aplicada onde dá retorno: atendimento, classificação e apoio a processos.",
+    icon: BrainCircuit,
   },
   {
-    title: "Sistemas personalizados",
-    description: "Quando nenhuma ferramenta pronta serve, um sistema desenhado para o seu processo.",
+    title: "Projetos sob medida",
+    description: "Quando nenhuma ferramenta pronta serve, desenhamos uma do zero para você.",
+    icon: Puzzle,
   },
 ];

@@ -15,6 +15,7 @@ export function Team() {
           <li
             key={member.name}
             data-reveal
+            data-spotlight
             style={{ "--reveal-delay": `${i * 80}ms` }}
             className="group grid gap-6 rounded-lg border border-line bg-surface p-5 transition-[border-color,box-shadow] duration-300 hover:border-neon/50 hover:glow sm:grid-cols-[200px_1fr] sm:p-6"
           >

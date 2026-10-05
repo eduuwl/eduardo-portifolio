@@ -15,7 +15,7 @@ export function SectionHeader({ id, title, lead, className }: SectionHeaderProps
       <h2 id={sectionTitleId(id)} className="heading-brand text-sm text-fg sm:text-base">
         {title}
       </h2>
-      <span aria-hidden className="mt-4 block h-px w-full max-w-md bg-gradient-to-r from-line-strong to-transparent" />
+      <span aria-hidden className="draw-x mt-4 block h-px w-full max-w-md bg-gradient-to-r from-neon/70 via-line-strong to-transparent" />
       {lead ? (
         <p className="mt-6 font-display text-2xl leading-snug font-semibold text-balance text-fg sm:text-[2rem]">
           {lead}

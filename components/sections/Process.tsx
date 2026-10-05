@@ -12,21 +12,21 @@ export function Process() {
       />
 
       {/* As etapas ligadas por uma trilha de circuito */}
-      <ol className="relative mt-16 grid gap-10 lg:grid-cols-5 lg:gap-6">
+      <ol data-reveal className="relative mt-16 grid gap-10 lg:grid-cols-5 lg:gap-6">
         <span
           aria-hidden
-          className="absolute top-[9px] right-0 left-0 hidden h-px bg-gradient-to-r from-neon via-leaf to-circuit lg:block"
+          className="draw-x absolute top-[9px] right-0 left-0 hidden h-px bg-gradient-to-r from-neon via-leaf to-circuit lg:block"
         />
         <span
           aria-hidden
-          className="absolute top-2 bottom-2 left-[9px] w-px bg-gradient-to-b from-neon via-leaf to-circuit lg:hidden"
+          className="draw-y absolute top-2 bottom-2 left-[9px] w-px bg-gradient-to-b from-neon via-leaf to-circuit lg:hidden"
         />
 
         {processSteps.map((step, i) => (
           <li
             key={step.title}
             data-reveal
-            style={{ "--reveal-delay": `${i * 70}ms` }}
+            style={{ "--reveal-delay": `${150 + i * 220}ms` }}
             className="relative grid grid-cols-[auto_1fr] gap-x-6 lg:block"
           >
             <span aria-hidden className="relative z-10 block size-[19px] rounded-full border-2 border-neon bg-bg glow" />

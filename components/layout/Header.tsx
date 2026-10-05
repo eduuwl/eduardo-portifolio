@@ -69,6 +69,12 @@ export function Header() {
         scrolled || open ? "border-line bg-bg/90 backdrop-blur-md" : "border-transparent",
       )}
     >
+      {/* Progresso de leitura da página */}
+      <span
+        aria-hidden
+        className="scroll-progress absolute inset-x-0 -bottom-px h-0.5 bg-neon shadow-[0_0_10px_var(--color-neon)]"
+      />
+
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <a href="#inicio" onClick={close} className="flex items-center gap-2.5" aria-label="Noteron, voltar ao início">
           <Emblem sizes="36px" priority className="size-9 object-contain" />

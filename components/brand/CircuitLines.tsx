@@ -18,7 +18,13 @@ const nodes: [number, number][] = [
   [90, 120],
 ];
 
-export function CircuitLines({ className }: { className?: string }) {
+type CircuitLinesProps = {
+  className?: string;
+  /** Pulsos de "corrente" percorrendo as trilhas */
+  animated?: boolean;
+};
+
+export function CircuitLines({ className, animated = false }: CircuitLinesProps) {
   return (
     <svg viewBox="0 0 440 360" fill="none" aria-hidden className={cn("pointer-events-none", className)}>
       <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -26,9 +32,32 @@ export function CircuitLines({ className }: { className?: string }) {
           <path key={d} d={d} />
         ))}
       </g>
+
+      {animated ? (
+        <g stroke="var(--color-neon)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {traces.map((d, i) => (
+            <path
+              key={d}
+              d={d}
+              pathLength={100}
+              className="anim-current"
+              strokeDasharray="0 100"
+              style={{ "--current-delay": `${i * 0.9}s`, filter: "drop-shadow(0 0 4px var(--color-neon))" }}
+            />
+          ))}
+        </g>
+      ) : null}
+
       <g fill="var(--color-bg)" stroke="currentColor" strokeWidth="1.5">
-        {nodes.map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4.5" />
+        {nodes.map(([cx, cy], i) => (
+          <circle
+            key={`${cx}-${cy}`}
+            cx={cx}
+            cy={cy}
+            r="4.5"
+            className={animated ? "anim-pulse" : undefined}
+            style={animated ? { animationDelay: `${i * 0.4}s` } : undefined}
+          />
         ))}
       </g>
     </svg>

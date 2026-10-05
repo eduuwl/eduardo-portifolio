@@ -21,7 +21,7 @@ export function Contact() {
 
   return (
     <Section id="contato" className="isolate overflow-hidden border-t border-line py-24 sm:py-36">
-      <CircuitLines className="absolute -right-20 bottom-0 -z-10 w-[560px] -scale-x-100 text-circuit/40 max-md:hidden" />
+      <CircuitLines className="absolute -right-20 bottom-0 -z-10 w-[560px] -scale-x-100 text-circuit/40 max-md:hidden" animated />
       <Emblem sizes="420px" className="absolute top-1/2 right-[6%] -z-10 hidden w-[380px] -translate-y-1/2 opacity-[0.12] xl:block" />
 
       <SectionHeader
@@ -29,7 +29,7 @@ export function Contact() {
         title="Contato"
         lead={
           <>
-            Tem um processo que poderia rodar sozinho? <span className="text-neon text-glow">Vamos conversar.</span>
+            Tem um processo que poderia rodar sozinho? <span className="neon-on text-neon text-glow">Vamos conversar.</span>
           </>
         }
       />
@@ -79,6 +79,7 @@ function ContactCard({ channel, highlighted }: { channel: ContactChannel; highli
   return (
     <a
       href={channel.href}
+      data-spotlight
       {...(channel.external ? externalLinkProps : {})}
       className={cn(
         "group block h-full rounded-lg border bg-surface p-5 transition-[border-color,box-shadow] duration-300",

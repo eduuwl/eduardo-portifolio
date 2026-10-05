@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Montserrat } from "next/font/google";
+import { SplashScreen } from "@/components/layout/SplashScreen";
 import { siteConfig } from "@/config/site";
 import { getOrganizationJsonLd, serializeJsonLd } from "@/lib/structured-data";
 import "./globals.css";
@@ -50,6 +51,23 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+/**
+ * Roda antes da primeira pintura. Marca que há JS (para as animações de entrada
+ * não "piscarem") e liga a tela de loading, a menos que o usuário peça menos
+ * movimento. A trava encerra a tela sozinha se algo der errado.
+ */
+const bootScript = `(function(){
+  var d = document.documentElement;
+  d.classList.add("js");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  d.classList.add("splash-on");
+  setTimeout(function(){
+    if (!d.classList.contains("splash-on")) return;
+    d.classList.remove("splash-on");
+    window.dispatchEvent(new Event("splash:done"));
+  }, 5000);
+})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -58,8 +76,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        {/* Marca que há JS antes da pintura, para a animação de entrada não "piscar" */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Antes da pintura: marca que há JS e liga a tela de loading */}
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(getOrganizationJsonLd()) }}
@@ -72,6 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Pular para o conteúdo
         </a>
+        <SplashScreen />
         {children}
       </body>
     </html>

@@ -19,6 +19,7 @@ export function OtherProjectCard({ project }: { project: OtherProject }) {
   return (
     <a
       href={project.url}
+      data-spotlight
       {...externalLinkProps}
       className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[border-color,box-shadow] duration-300 hover:border-neon/50 hover:glow"
     >

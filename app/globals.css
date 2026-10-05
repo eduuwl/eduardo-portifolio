@@ -219,6 +219,219 @@ section[id] {
   }
 }
 
+/* ------------------------------------------------------------------
+   Tela de loading (SplashScreen)
+   A classe .splash-on no <html> é a única fonte de verdade: o script
+   inline do layout a coloca antes da pintura e o SplashScreen a remove
+   quando a página carrega. Sem JS ou com menos movimento, nem aparece.
+------------------------------------------------------------------- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    visibility 0.7s;
+}
+
+html:not(.js) .splash {
+  display: none;
+}
+
+html:not(.splash-on) .splash {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html.splash-on {
+  overflow: hidden;
+}
+
+@keyframes neon-on {
+  0% {
+    opacity: 0.08;
+  }
+  8% {
+    opacity: 1;
+  }
+  11% {
+    opacity: 0.2;
+  }
+  18% {
+    opacity: 1;
+  }
+  21% {
+    opacity: 0.45;
+  }
+  30%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes splash-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.splash-emblem {
+  animation: neon-on 1.2s linear both;
+}
+
+.splash-wordmark {
+  animation: neon-on 1.2s linear 0.25s both;
+}
+
+.splash-bar {
+  transform-origin: left;
+  animation: splash-bar 1.3s var(--ease-out-soft) 0.2s both;
+}
+
+/* ------------------------------------------------------------------
+   Movimento extra (hero, faixa rolando, fios que se desenham)
+------------------------------------------------------------------- */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes current-run {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .anim-glow {
+    animation: glow-pulse 4.5s ease-in-out infinite;
+  }
+
+  /* Pulso de "corrente" percorrendo as trilhas de circuito */
+  .anim-current {
+    stroke-dasharray: 9 91;
+    animation: current-run 3.6s linear infinite;
+    animation-delay: var(--current-delay, 0s);
+  }
+
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Texto que acende como letreiro neon quando aparece na tela */
+  .js [data-shown] .neon-on {
+    animation: neon-on 1.3s linear 0.45s both;
+  }
+
+  /* Fios que se desenham ao entrar na tela */
+  .js .draw-x,
+  .js .draw-y {
+    transition: transform 1.3s var(--ease-out-soft) 0.15s;
+  }
+
+  .js .draw-x {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .js .draw-y {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .js [data-shown] .draw-x,
+  .js [data-shown] .draw-y,
+  .js [data-shown].draw-x {
+    transform: none;
+  }
+}
+
+/* Barra de progresso de leitura (só em navegadores com scroll-driven animations) */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+/* Brilho que segue o mouse (posição vem do PointerGlow) */
+[data-spotlight] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-spotlight]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgb(0 255 63 / 0.1), transparent 65%);
+}
+
+@media (hover: hover) {
+  [data-spotlight]:hover::before {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-check {
     opacity: 1;

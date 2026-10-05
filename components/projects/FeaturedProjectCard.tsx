@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { projectVisuals } from "@/components/projects/ProjectVisuals";
+import { CountUp } from "@/components/ui/CountUp";
 import type { Project } from "@/data/content";
 import { cn } from "@/lib/cn";
 import { externalLinkProps } from "@/lib/links";
@@ -18,6 +19,7 @@ export function FeaturedProjectCard({ project, reversed = false }: { project: Pr
   return (
     <article
       data-reveal
+      data-spotlight
       aria-labelledby={titleId}
       className="overflow-hidden rounded-lg border border-line bg-surface transition-colors duration-500 hover:border-line-strong"
     >
@@ -100,7 +102,7 @@ export function FeaturedProjectCard({ project, reversed = false }: { project: Pr
               <ul className="mt-3 flex items-end gap-10">
                 {metrics.map((m) => (
                   <li key={m.label}>
-                    <span className="block font-display text-4xl font-bold text-neon text-glow">{m.value}</span>
+                    <CountUp value={m.value} className="block font-display text-4xl font-bold text-neon text-glow tabular-nums" />
                     <span className="mt-1 block text-sm text-muted">{m.label}</span>
                   </li>
                 ))}

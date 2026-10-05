@@ -12,10 +12,11 @@ export function Services() {
           <li
             key={title}
             data-reveal
+            data-spotlight
             style={{ "--reveal-delay": `${(i % 3) * 60}ms` }}
             className="group rounded-lg border border-line bg-surface p-6 transition-[border-color,box-shadow] duration-300 hover:border-neon/60 hover:glow"
           >
-            <Icon aria-hidden strokeWidth={1.6} className="size-7 text-leaf transition-colors group-hover:text-neon" />
+            <Icon aria-hidden strokeWidth={1.6} className="size-7 text-leaf transition-[color,transform] duration-300 ease-out-soft group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:text-neon" />
             <h3 className="mt-6 font-display text-base font-semibold">{title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
           </li>

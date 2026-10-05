@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
 export function Hero() {
   return (
     <section id="inicio" aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28">
-      <CircuitLines className="absolute top-20 -right-10 -z-10 w-[640px] -scale-x-100 text-circuit/45 max-lg:hidden" />
+      <CircuitLines className="absolute top-20 -right-10 -z-10 w-[640px] -scale-x-100 text-circuit/45 max-lg:hidden" animated />
 
       <div className="container-page grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
@@ -21,7 +21,7 @@ export function Hero() {
             style={{ "--reveal-delay": "60ms" }}
             className="mt-6 font-display text-[clamp(2.4rem,5.6vw,4.4rem)] leading-[1.04] font-bold tracking-[-0.02em] text-balance"
           >
-            Conectando a Amazônia ao <span className="text-neon text-glow">futuro digital.</span>
+            Conectando a Amazônia ao <span className="neon-on text-neon text-glow">futuro digital.</span>
           </h1>
 
           <p
@@ -46,13 +46,15 @@ export function Hero() {
         </div>
 
         <div data-reveal style={{ "--reveal-delay": "200ms" }} className="relative mx-auto w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[460px]">
-          <div aria-hidden className="absolute inset-[12%] -z-10 rounded-full bg-neon/15 blur-[90px]" />
-          <Emblem
-            alt="Emblema da Noteron: um guardião da floresta com uma folha em uma mão e uma seta de circuito na outra"
-            sizes="(min-width: 1024px) 460px, 80vw"
-            priority
-            className="anim-flicker h-auto w-full"
-          />
+          <div aria-hidden className="anim-glow absolute inset-[12%] -z-10 rounded-full bg-neon/15 blur-[90px]" />
+          <div className="anim-float">
+            <Emblem
+              alt="Emblema da Noteron: um guardião da floresta com uma folha em uma mão e uma seta de circuito na outra"
+              sizes="(min-width: 1024px) 460px, 80vw"
+              priority
+              className="anim-flicker h-auto w-full"
+            />
+          </div>
         </div>
       </div>
     </section>

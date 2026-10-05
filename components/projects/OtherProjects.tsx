@@ -6,10 +6,13 @@ export function OtherProjects() {
 
   return (
     <div id="outros-projetos" className="mt-20 scroll-mt-20">
-      <h3 data-reveal className="heading-brand text-sm text-fg">
-        Sites e outros projetos
-      </h3>
-      <span aria-hidden className="mt-4 block h-px w-full max-w-md bg-gradient-to-r from-line-strong to-transparent" />
+      <div data-reveal>
+        <h3 className="heading-brand text-sm text-fg">Sites e outros projetos</h3>
+        <span
+          aria-hidden
+          className="draw-x mt-4 block h-px w-full max-w-md bg-gradient-to-r from-neon/70 via-line-strong to-transparent"
+        />
+      </div>
 
       <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
         {otherProjects.map((project, i) => (

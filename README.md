@@ -77,9 +77,22 @@ lib/                    helpers (cn, links externos, JSON-LD, arquivos em /publi
 types/css.d.ts          permite CSS custom properties em `style`
 ```
 
+## Animações
+
+| O quê | Onde |
+| --- | --- |
+| Tela de loading | `components/layout/SplashScreen.tsx` + script `bootScript` em `app/layout.tsx` |
+| Entrada dos blocos ao rolar | `[data-reveal]` + `components/layout/RevealObserver.tsx` |
+| Brilho que segue o mouse nos cards | `[data-spotlight]` + `components/layout/PointerGlow.tsx` |
+| Números que contam | `components/ui/CountUp.tsx` |
+| Faixa de serviços rolando | `components/sections/Marquee.tsx` |
+| Corrente nas trilhas de circuito | `<CircuitLines animated />` |
+
+Os keyframes ficam em `app/globals.css`. A tela de loading aparece por no mínimo 1,5 s (`MIN_VISIBLE_MS`) e tem uma trava que a encerra sozinha em 5 s se algo der errado.
+
 ## Acessibilidade e performance
 
-- Todas as animações respeitam `prefers-reduced-motion`.
+- Todas as animações respeitam `prefers-reduced-motion`: com "reduzir movimento" ligado, nem a tela de loading aparece.
 - Link "Pular para o conteúdo", foco visível, landmarks e títulos semânticos.
 - Página 100% estática (prerender). A única dependência extra é `lucide-react` (ícones).
 

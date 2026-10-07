@@ -3,18 +3,29 @@
  * Dados da marca, links e textos de SEO ficam aqui para serem editados em um só lugar.
  */
 
+/**
+ * Endereço atual em produção (Netlify). Serve de rede de segurança: nunca cai
+ * para localhost fora do ambiente de desenvolvimento, mesmo que NEXT_PUBLIC_SITE_URL
+ * não tenha sido cadastrada no deploy. Troque para o domínio próprio assim que ele existir.
+ */
+const PRODUCTION_FALLBACK_URL = "https://eduardo-uchoa-portifolio.netlify.app";
+
 export const siteConfig = {
   name: "Noteron",
   tagline: "Soluções digitais",
   slogan: "Conectando a Amazônia ao futuro digital",
   /**
-   * URL pública do site (usada em Open Graph, sitemap e robots).
+   * URL pública do site (usada em metadataBase, Open Graph, sitemap e robots).
    * Defina NEXT_PUBLIC_SITE_URL no ambiente de deploy, ex.: https://noteron.com.br
+   * (lembre-se: variáveis NEXT_PUBLIC_ só pegam em um novo deploy).
    */
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
-  title: "Noteron | Soluções digitais no Pará",
+  url: (
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.NODE_ENV === "development" ? "http://localhost:3000" : PRODUCTION_FALLBACK_URL)
+  ).replace(/\/$/, ""),
+  title: "Noteron | Sistemas, sites e automação em Belém (PA)",
   description:
-    "A Noteron é uma startup paraense que desenvolve sistemas web, automações e soluções com inteligência artificial, e cuida do marketing e SEO de empresas da Amazônia.",
+    "A Noteron desenvolve sites, sistemas web e automações com IA para empresas do Pará, e cuida do marketing e SEO. Peça um orçamento e converse com a gente.",
   locale: "pt_BR",
   region: "Pará",
   keywords: [

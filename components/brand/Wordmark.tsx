@@ -1,6 +1,11 @@
 import { cn } from "@/lib/cn";
 
-/** O segundo "O" de NOTERON é um símbolo de power, como no logo. */
+/**
+ * O segundo "O" de NOTERON é um símbolo de power, como no logo. O glifo fica por cima
+ * da letra real (que segue no texto, só com cor transparente): assim leitores de tela,
+ * busca e auditorias de acessibilidade continuam lendo "Noteron" certinho, sem precisar
+ * de um texto duplicado em sr-only.
+ */
 function PowerO() {
   return (
     <svg
@@ -10,7 +15,7 @@ function PowerO() {
       strokeWidth="2.6"
       strokeLinecap="round"
       aria-hidden
-      className="inline-block h-[0.86em] w-[0.86em] -translate-y-[0.06em] align-middle"
+      className="pointer-events-none absolute inset-0 m-auto h-[0.86em] w-[0.86em] -translate-y-[0.06em] text-neon"
     >
       <path d="M17.6 5.9a9 9 0 1 1-11.2 0" />
       <path d="M12 2.6v8.2" />
@@ -33,10 +38,13 @@ export function Wordmark({ className, glow = false }: WordmarkProps) {
         className,
       )}
     >
-      <span className="sr-only">Noteron</span>
-      <span aria-hidden className="whitespace-nowrap">
+      <span className="whitespace-nowrap">
         NOTER
-        <PowerO />N
+        <span className="relative inline-block text-transparent">
+          O
+          <PowerO />
+        </span>
+        N
       </span>
     </span>
   );

@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [...siteConfig.keywords],
   applicationName: siteConfig.name,
   creator: siteConfig.name,
   alternates: { canonical: "/" },

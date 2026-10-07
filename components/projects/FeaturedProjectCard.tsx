@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { projectVisuals } from "@/components/projects/ProjectVisuals";
 import { CountUp } from "@/components/ui/CountUp";
 import type { Project } from "@/data/content";
@@ -9,8 +10,16 @@ const labelClass = "heading-brand text-[11px] text-leaf";
 const linkClass =
   "group/link inline-flex items-center gap-1.5 font-display text-xs font-semibold tracking-[0.12em] text-fg uppercase transition-colors hover:text-neon";
 
-export function FeaturedProjectCard({ project, reversed = false }: { project: Project; reversed?: boolean }) {
+type FeaturedProjectCardProps = {
+  project: Project;
+  reversed?: boolean;
+  /** "h3" quando embutido sob o h2 da seção Projetos (home), "h1" quando é o título da página do case */
+  headingLevel?: "h1" | "h3";
+};
+
+export function FeaturedProjectCard({ project, reversed = false, headingLevel = "h3" }: FeaturedProjectCardProps) {
   const titleId = `projeto-${project.slug}`;
+  const Heading = headingLevel;
   const Visual = project.visual ? projectVisuals[project.visual] : null;
   const links = project.links ?? [];
   const approach = project.approach ?? [];
@@ -26,9 +35,9 @@ export function FeaturedProjectCard({ project, reversed = false }: { project: Pr
       <div className="grid lg:grid-cols-12">
         <div className={cn("flex flex-col p-6 sm:p-10 lg:col-span-7", reversed && "lg:order-2")}>
           <p className={labelClass}>{project.kicker}</p>
-          <h3 id={titleId} className="mt-4 font-display text-3xl font-bold tracking-[-0.01em] sm:text-4xl">
+          <Heading id={titleId} className="mt-4 font-display text-3xl font-bold tracking-[-0.01em] sm:text-4xl">
             {project.name}
-          </h3>
+          </Heading>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted sm:text-lg">
             {project.description}
           </p>
@@ -77,13 +86,13 @@ export function FeaturedProjectCard({ project, reversed = false }: { project: Pr
                 </a>
               ))
             ) : (
-              <a href="#contato" className={linkClass}>
+              <Link href="/#contato" className={linkClass}>
                 Quero algo parecido
                 <ArrowUpRight
                   aria-hidden
                   className="size-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
                 />
-              </a>
+              </Link>
             )}
           </div>
         </div>

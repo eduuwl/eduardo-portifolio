@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 import { Emblem } from "@/components/brand/Emblem";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { navItems } from "@/config/site";
@@ -76,10 +77,10 @@ export function Header() {
       />
 
       <div className="container-page flex h-16 items-center justify-between gap-6">
-        <a href="#inicio" onClick={close} className="flex items-center gap-2.5" aria-label="Noteron, voltar ao início">
+        <Link href="/#inicio" onClick={close} className="flex items-center gap-2.5" aria-label="Noteron, voltar ao início">
           <Emblem sizes="36px" priority className="size-9 object-contain" />
           <Wordmark className="text-base" />
-        </a>
+        </Link>
 
         <nav aria-label="Principal" className="hidden lg:block">
           <ul className="flex items-center font-display text-[11px] font-semibold tracking-[0.14em] uppercase">
@@ -88,8 +89,8 @@ export function Header() {
               return (
                 <li key={item.id} className="flex items-center">
                   {i > 0 && <span aria-hidden className="h-3 w-px bg-line-strong" />}
-                  <a
-                    href={`#${item.id}`}
+                  <Link
+                    href={`/#${item.id}`}
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "px-4 py-2 transition-colors",
@@ -97,7 +98,7 @@ export function Header() {
                     )}
                   >
                     {item.nav}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -126,13 +127,13 @@ export function Header() {
         <ul className="container-page flex flex-col py-6">
           {navItems.map((item) => (
             <li key={item.id} className="border-b border-line">
-              <a
-                href={`#${item.id}`}
+              <Link
+                href={`/#${item.id}`}
                 onClick={close}
                 className="heading-brand block py-5 text-lg text-fg transition-colors active:text-neon"
               >
                 {item.nav}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

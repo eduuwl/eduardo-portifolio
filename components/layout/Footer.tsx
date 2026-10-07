@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { siteConfig } from "@/config/site";
 
@@ -19,10 +20,10 @@ export function Footer() {
           <span>
             © {year} {siteConfig.name}
           </span>
-          <a href="#inicio" className="group inline-flex items-center gap-2 transition-colors hover:text-neon">
+          <Link href="/#inicio" className="group inline-flex items-center gap-2 transition-colors hover:text-neon">
             Voltar ao topo
             <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

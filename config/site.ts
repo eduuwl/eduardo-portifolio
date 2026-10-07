@@ -25,7 +25,7 @@ export const siteConfig = {
   ).replace(/\/$/, ""),
   title: "Noteron | Sistemas, sites e automação em Belém (PA)",
   description:
-    "A Noteron desenvolve sites, sistemas web e automações com IA para empresas do Pará, e cuida do marketing e SEO. Peça um orçamento e converse com a gente.",
+    "A Noteron desenvolve sites, sistemas web e automações com IA para empresas do Pará. Peça um orçamento e converse com a gente.",
   locale: "pt_BR",
   region: "Pará",
   keywords: [

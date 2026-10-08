@@ -9,29 +9,29 @@ Hoje o site publica `http://localhost:3000` como endereço oficial no canonical,
 - [x] Centralizar a URL do site numa constante (`SITE_URL`) com fallback para o endereço de produção, nunca para localhost
 - [x] Usar `SITE_URL` no `metadataBase` do `app/layout.tsx`
 - [x] Usar `SITE_URL` no `app/sitemap.ts` e no `app/robots.ts`
-- [ ] Cadastrar `NEXT_PUBLIC_SITE_URL` nas variáveis de ambiente do site no Netlify
-- [ ] Fazer um novo deploy: variáveis `NEXT_PUBLIC_` são embutidas no build, então só cadastrar não basta
-- [ ] Conferir no view-source que canonical, `og:url`, `og:image` e `twitter:image` mostram o domínio real
-- [ ] Conferir `/robots.txt` e `/sitemap.xml` com o domínio real
+- [x] Cadastrar `NEXT_PUBLIC_SITE_URL` nas variáveis de ambiente do site no Netlify
+- [x] Fazer um novo deploy: variáveis `NEXT_PUBLIC_` são embutidas no build, então só cadastrar não basta
+- [x] Conferir no view-source que canonical, `og:url`, `og:image` e `twitter:image` mostram o domínio real — confirmado em `https://noteron.com.br`
+- [x] Conferir `/robots.txt` e `/sitemap.xml` com o domínio real
 - [ ] Testar o preview do link no WhatsApp e no LinkedIn (o Post Inspector do LinkedIn força a atualização do cache)
 
 ## 2. Domínio e infraestrutura
 
 O endereço `eduardo-uchoa-portifolio.netlify.app` não tem a marca e diz "portifólio". Troque por um domínio próprio antes de enviar o site ao Search Console, para não precisar migrar a indexação depois.
 
-- [ ] Registrar o domínio próprio (ex.: `noteron.com.br` no Registro.br)
-- [ ] Apontar o domínio para o Netlify e confirmar o HTTPS ativo
-- [ ] Escolher a versão com ou sem `www` e redirecionar a outra com 301
-- [ ] Confirmar que o endereço `.netlify.app` redireciona (301) para o domínio novo
-- [ ] Atualizar `NEXT_PUBLIC_SITE_URL` para o domínio novo e refazer o deploy
+- [x] Registrar o domínio próprio (`noteron.com.br` no Registro.br)
+- [x] Apontar o domínio para o Netlify e confirmar o HTTPS ativo
+- [x] Escolher a versão com ou sem `www` e redirecionar a outra com 301 — ficou `noteron.com.br` (sem www) como principal, `www` redireciona 301 pra ele
+- [x] Confirmar que o endereço `.netlify.app` redireciona (301) para o domínio novo — não redirecionava; adicionei a regra em `netlify.toml` (falta só o próximo deploy pra valer)
+- [x] Atualizar `NEXT_PUBLIC_SITE_URL` para o domínio novo e refazer o deploy
 - [ ] Criar um e-mail no domínio (ex.: `contato@noteron.com.br`) no lugar do Gmail; pesa na credibilidade, não no ranking
 
 ## 3. Indexação técnica
 
 O objetivo aqui é garantir que o Google encontre todas as páginas e entenda qual é a versão oficial de cada uma.
 
-- [ ] Criar a propriedade no Google Search Console (tipo Domínio, verificada por DNS)
-- [ ] Enviar o `sitemap.xml` no Search Console
+- [x] Criar a propriedade no Google Search Console (tipo Domínio, verificada por DNS)
+- [x] Enviar o `sitemap.xml` no Search Console
 - [ ] Usar a Inspeção de URL na home e pedir a indexação
 - [ ] Cadastrar o site no Bing Webmaster Tools (ele importa os dados do Search Console)
 - [x] Gerar o `sitemap.ts` dinamicamente, para incluir sozinho cada página de serviço e de case nova
@@ -55,6 +55,7 @@ O title atual ("Soluções digitais no Pará") é bom como slogan, mas ninguém 
 - [x] Imagem OG própria para cada case (`opengraph-image` na pasta da rota)
 - [x] Conferir favicon e ícone para iOS (`app/icon.png` e `app/apple-icon.png`)
 - [x] Remover a `meta keywords` (opcional: o Google ignora, mas não prejudica)
+- [x] Adicionar `<meta name="author">`, `<link rel="author">`, `creator` e `publisher` (não estava no checklist original, mas uma ferramenta de SEO que vocês rodaram apontou a falta)
 
 ## 5. Estrutura do site e conteúdo
 
@@ -113,7 +114,7 @@ No `sameAs`, o ideal são perfis da empresa, não os pessoais.
 
 As metas no celular são LCP abaixo de 2,5 s, INP abaixo de 200 ms e CLS abaixo de 0,1. A performance ainda não foi medida; o primeiro item é rodar o teste.
 
-- [ ] Rodar o PageSpeed Insights (versão mobile) na home e anotar LCP, INP e CLS
+- [x] Rodar o PageSpeed Insights (versão mobile) na home e anotar LCP, INP e CLS — rodei Lighthouse mobile contra o site publicado (`noteron.com.br`): **Performance 83, Acessibilidade 100, SEO 100, Boas práticas 100**. CLS 0,001 (ótimo). LCP 3,5s (meta: até 2,5s) — ponto real a melhorar, ver nota no final do arquivo
 - [x] Marcar a imagem do emblema no topo com `priority`, porque ela é a provável candidata a LCP
 - [x] Definir `sizes` no `next/image`, para o navegador não baixar versões maiores que o necessário
 - [x] Garantir `width`/`height` (ou `fill` com container dimensionado) em todas as imagens
@@ -199,3 +200,32 @@ Não implementei nenhuma das quatro — é uma decisão sua.
 Rodei o Lighthouse de verdade (build de produção, local) e ele acusou um erro real de acessibilidade: o link do logo no cabeçalho tem `aria-label="Noteron, voltar ao início"`, mas o texto visível dentro dele (`components/brand/Wordmark.tsx`) nunca teve a letra "O" de verdade — o segundo "O" de "NOTERON" sempre foi só o ícone de power em SVG, com um texto duplicado em `sr-only` por fora pra compensar. Na prática o DOM lia "NOTERN" (sem o O), o que é exatamente o que a seção 5 deste checklist já tinha anotado como suspeito — eu tinha avaliado como "ok, está em aria-hidden" cedo demais; o Lighthouse provou que não bastava.
 
 Corrigi reescrevendo o componente: a letra "O" real agora fica no texto (com `color: transparent`, não `aria-hidden`/`sr-only`), e o ícone de power fica posicionado em cima dela por CSS. Visualmente fica idêntico; o DOM agora lê "NOTERON" de verdade. Rodei o Lighthouse de novo depois da correção: **0 apontamentos**, nas três categorias testadas.
+
+---
+
+## Atualização — 7 out. 2026 (Claude)
+
+O domínio `noteron.com.br` foi registrado e colocado no ar hoje. Resumo do que mudou:
+
+### Domínio e DNS
+- Apontado via A record (`75.2.60.5`) e CNAME `www`, DNS mantido no próprio Registro.br
+- Demorou pra propagar por causa de um período de transição no painel do Registro.br (não foi erro de configuração, só precisou esperar o timer zerar)
+- `noteron.com.br` (sem www) ficou como domínio principal; `www` redireciona 301 pra ele
+- `.netlify.app` **não** redirecionava sozinho pro domínio novo — adicionei a regra em `netlify.toml` (força 301 de `eduardo-uchoa-portifolio.netlify.app` pro domínio novo). Falta o próximo deploy pra isso valer
+
+### NEXT_PUBLIC_SITE_URL — pegadinha do www
+Na primeira tentativa, a variável foi cadastrada como `https://www.noteron.com.br`, mas o `www` redireciona pro domínio sem-www — isso criava uma contradição (canonical mandava pro www, que mandava de volta pro domínio sem www). Corrigido pra `https://noteron.com.br`. Hoje canonical, sitemap, robots.txt e OG estão todos consistentes.
+
+### Search Console
+Propriedade criada (tipo Domínio), sitemap enviado. `site:noteron.com.br` no Google ainda não retorna nada — **isso é normal** pra um domínio que entrou no ar hoje, não é bug. Indexação de verdade leva de horas a dias depois de pedida; ranquear pra palavra-chave leva semanas a mais.
+
+### Achados de uma ferramenta de auditoria externa que vocês rodaram
+- Meta description cortava visualmente (153 caracteres = ~1026px, acima do limite de ~990px). Encurtei pra 125 caracteres
+- Faltava `<meta name="author">` — adicionado, junto com `creator` e `publisher`
+- "6 imagens sem width/height" apontado pela ferramenta — são as fotos da Equipe e dos outros projetos, que usam `fill` do `next/image` de propósito (dimensionadas por CSS, não por atributo). Confirmado que não afeta CLS de verdade (CLS medido: 0,001)
+- O LCP de "204,7s" que a ferramenta reportou não é real (fisicamente implausível) — provavelmente cache frio logo após o domínio entrar no ar
+
+### Performance real (Lighthouse contra o site publicado)
+Performance 83, Acessibilidade/SEO/Boas práticas 100. CLS ótimo (0,001). **LCP em 3,5s** (meta: 2,5s) — a causa raiz identificada foi a imagem do emblema no Hero (127KB na variante usada, por causa de compressão). Corrigi habilitando **AVIF** no `next.config.ts` (`images.formats`), que comprime bem melhor que WebP para esse tipo de ilustração com gradiente/brilho suave — testado visualmente lado a lado no fundo escuro do site, sem diferença perceptível, ~58% menor. Confirmei que resolve especificamente o apontamento de "entrega de imagem" do Lighthouse. O LCP pode não cair sozinho só com isso; se continuar alto depois do deploy, o próximo suspeito é a tela de loading (ver nota acima) ou o JavaScript carregado antes da pintura.
+
+**Pendente de commit/deploy:** `netlify.toml` (redirect do `.netlify.app`) e `next.config.ts` (AVIF).

@@ -325,20 +325,21 @@ export const servicePages: ServicePage[] = [
   {
     slug: "criacao-de-sites",
     name: "Criação de sites",
-    metaTitle: "Criação de sites e landing pages em Belém (PA)",
+    metaTitle: "Criação de sites e lojas virtuais em Belém (PA)",
     metaDescription:
-      "Criamos sites institucionais e landing pages rápidos, responsivos e prontos para aparecer no Google, feitos para empresas do Pará. Peça um orçamento.",
-    lead: "Sites rápidos, bonitos no celular e prontos para aparecer no Google.",
+      "Criamos sites institucionais e lojas virtuais rápidos, responsivos e prontos para aparecer no Google, feitos para empresas do Pará. Peça um orçamento.",
+    lead: "Sites e lojas virtuais rápidos, bonitos no celular e prontos para aparecer no Google.",
     summary:
-      "Desenvolvemos sites institucionais e landing pages para empresas e profissionais do Pará. O foco é sempre o mesmo: carregar rápido, funcionar bem no celular e ajudar a conquistar clientes pela internet.",
+      "Desenvolvemos sites institucionais, lojas virtuais e landing pages para empresas e profissionais do Pará. O foco é sempre o mesmo: carregar rápido, funcionar bem no celular e ajudar a conquistar clientes pela internet.",
     includes: [
       "Design pensado para o seu público e para conversão",
+      "Loja virtual com catálogo, carrinho e pagamento online",
       "Site responsivo, rápido e testado no celular",
       "Otimização básica de SEO e de imagem para redes sociais",
       "Formulário de contato e botão de WhatsApp",
       "Deploy, domínio e certificado de segurança (HTTPS) configurados",
     ],
-    forWho: "Empresas que ainda não têm site, ou que têm um site antigo, lento ou difícil de atualizar.",
+    forWho: "Empresas que ainda não têm site ou loja virtual, ou que têm um site antigo, lento ou difícil de atualizar.",
     exampleProjectNames: ["Academia Belfort", "Hello Ana Make"],
     faq: [
       {

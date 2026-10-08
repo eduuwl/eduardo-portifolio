@@ -1,0 +1,17 @@
+# Configurações de build ficam no painel da Netlify (detecção automática do Next.js).
+# Este arquivo só define redirecionamentos.
+
+# O endereço .netlify.app continua existindo por padrão mesmo com o domínio
+# próprio configurado; força o redirecionamento para não deixar duas URLs
+# diferentes servindo o mesmo conteúdo (ruim para SEO).
+[[redirects]]
+  from = "http://eduardo-uchoa-portifolio.netlify.app/*"
+  to = "https://noteron.com.br/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://eduardo-uchoa-portifolio.netlify.app/*"
+  to = "https://noteron.com.br/:splat"
+  status = 301
+  force = true

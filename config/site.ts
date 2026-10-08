@@ -83,6 +83,7 @@ export const team: TeamMember[] = [
     role: "Marketing e SEO",
     bio: "Cuida do marketing e do SEO. Trabalha para que os sites que entregamos sejam encontrados no Google e tragam clientes de verdade para quem contrata a Noteron.",
     photo: { src: "/andre.jpg", alt: "André Uchoa, responsável por marketing e SEO na Noteron" },
+    linkedin: "https://www.linkedin.com/in/andreuchoa-in/",
   },
 ];
 

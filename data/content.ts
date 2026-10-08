@@ -325,12 +325,12 @@ export const servicePages: ServicePage[] = [
   {
     slug: "criacao-de-sites",
     name: "Criação de sites",
-    metaTitle: "Criação de sites e lojas virtuais em Belém (PA)",
+    metaTitle: "Criação de sites profissionais e lojas virtuais",
     metaDescription:
-      "Criamos sites institucionais e lojas virtuais rápidos, responsivos e prontos para aparecer no Google, feitos para empresas do Pará. Peça um orçamento.",
-    lead: "Sites e lojas virtuais rápidos, bonitos no celular e prontos para aparecer no Google.",
+      "Criamos sites profissionais e lojas virtuais rápidos, responsivos e prontos para aparecer no Google, feitos para empresas do Pará. Peça um orçamento.",
+    lead: "Sites profissionais e lojas virtuais rápidos, bonitos no celular e prontos para aparecer no Google.",
     summary:
-      "Desenvolvemos sites institucionais, lojas virtuais e landing pages para empresas e profissionais do Pará. O foco é sempre o mesmo: carregar rápido, funcionar bem no celular e ajudar a conquistar clientes pela internet.",
+      "Desenvolvemos sites profissionais, lojas virtuais e landing pages para empresas e profissionais do Pará. O foco é sempre o mesmo: carregar rápido, funcionar bem no celular e ajudar a conquistar clientes pela internet.",
     includes: [
       "Design pensado para o seu público e para conversão",
       "Loja virtual com catálogo, carrinho e pagamento online",
@@ -398,16 +398,16 @@ export const servicePages: ServicePage[] = [
   {
     slug: "automacao",
     name: "Automação de processos",
-    metaTitle: "Automação de processos e integrações",
+    metaTitle: "Automação de processos e integração de sistemas",
     metaDescription:
-      "Automatizamos tarefas repetitivas com Python, automação de navegador, n8n e integrações entre sistemas, para a sua equipe focar no que importa.",
-    lead: "Tarefas repetitivas virando rotinas que rodam sozinhas.",
+      "Automatizamos tarefas repetitivas com Python e fazemos integração de sistemas que hoje não se falam, para a sua equipe focar no que importa.",
+    lead: "Automação com Python e integração de sistemas que hoje não se falam.",
     summary:
-      "Automatizamos processos manuais e repetitivos com Python, automação de navegador, n8n e integrações entre sistemas, para a sua equipe parar de perder tempo com trabalho que o computador pode fazer.",
+      "Automatizamos processos manuais e repetitivos com automação com Python, automação de navegador e n8n, além de fazer integração de sistemas entre ferramentas que hoje não se falam — para a sua equipe parar de perder tempo com trabalho que o computador pode fazer.",
     includes: [
       "Mapeamento do processo atual, passo a passo",
       "Automação com Python ou automação de navegador",
-      "Fluxos de integração no n8n entre ferramentas que hoje não se falam",
+      "Integração de sistemas: fluxos no n8n entre ferramentas que hoje não se falam",
       "Testes com dados reais antes de entrar em uso",
       "Acompanhamento depois que a automação entra em uso",
     ],
@@ -435,10 +435,10 @@ export const servicePages: ServicePage[] = [
     name: "Inteligência artificial",
     metaTitle: "Inteligência artificial para empresas do Pará",
     metaDescription:
-      "Aplicamos inteligência artificial em atendimento, classificação e apoio a processos de empresas do Pará. Fale com a Noteron e veja onde a IA se encaixa.",
+      "Aplicamos inteligência artificial para empresas em atendimento, classificação e apoio a processos no Pará. Fale com a Noteron e veja onde a IA se encaixa.",
     lead: "IA aplicada onde dá retorno: atendimento, classificação e apoio a processos.",
     summary:
-      "Usamos inteligência artificial para apoiar etapas específicas do seu negócio, como conversas de atendimento e vendas, em vez de prometer uma IA que resolve tudo de uma vez.",
+      "Levamos inteligência artificial para empresas que querem apoiar etapas específicas do negócio, como conversas de atendimento e vendas, em vez de prometer uma IA que resolve tudo de uma vez.",
     includes: [
       "Apoio de IA em conversas de atendimento e vendas",
       "Classificação automática de mensagens, documentos ou dados",

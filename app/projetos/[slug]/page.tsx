@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FeaturedProjectCard } from "@/components/projects/FeaturedProjectCard";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PointerGlow } from "@/components/layout/PointerGlow";
+import { RevealObserver } from "@/components/layout/RevealObserver";
 import { Breadcrumbs, type Crumb } from "@/components/ui/Breadcrumbs";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { featuredProjects, servicePages } from "@/data/content";
@@ -87,6 +89,8 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projetos
         </div>
       </main>
       <Footer />
+      <RevealObserver />
+      <PointerGlow />
     </>
   );
 }
